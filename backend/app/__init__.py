@@ -4,7 +4,7 @@ Flask Application Factory
 import logging
 from flask import Flask
 from flask_cors import CORS
-from config import Config
+from backend.config import Config
 
 # Configure logging
 logging.basicConfig(
