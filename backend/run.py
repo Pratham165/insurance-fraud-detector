@@ -18,8 +18,8 @@ import sys
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, PROJECT_ROOT)
 
-from app import app
-from config import Config
+from backend.app import app
+from backend.config import Config
 
 if __name__ == '__main__':
     print(f"Starting FraudGuard AI API on http://{Config.HOST}:{Config.PORT}")

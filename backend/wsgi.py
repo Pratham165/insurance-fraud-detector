@@ -17,7 +17,6 @@ BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))
 # project root — so `from ml.preprocessing import ...` works
 PROJECT_ROOT = os.path.dirname(BACKEND_DIR)
 
-sys.path.insert(0, BACKEND_DIR)
 sys.path.insert(0, PROJECT_ROOT)
 
-from app import app  # noqa: F401, E402
+from backend.app import app  # noqa: F401, E402

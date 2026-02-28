@@ -10,10 +10,8 @@ On Render, the Start Command must be:
 import sys
 import os
 
-# Add the backend directory to the Python path
 project_root = os.path.dirname(os.path.abspath(__file__))
-backend_dir = os.path.join(project_root, 'backend')
-sys.path.insert(0, backend_dir)
+sys.path.insert(0, project_root)
 
 # Import the Flask application instance from backend/app/__init__.py
-from app import app  # noqa: F401
+from backend.app import app  # noqa: F401

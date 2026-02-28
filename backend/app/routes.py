@@ -6,8 +6,8 @@ delegates to services for business logic.
 """
 import logging
 from flask import request, jsonify
-from app import app
-from app.services.prediction import predict_fraud, ModelManager
+from . import app
+from .services.prediction import predict_fraud, ModelManager
 
 logger = logging.getLogger(__name__)
 

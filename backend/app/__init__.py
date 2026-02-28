@@ -22,4 +22,4 @@ CORS(app, resources={
     }
 })
 
-from app import routes
+from . import routes
