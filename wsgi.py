@@ -11,10 +11,9 @@ import sys
 import os
 
 # Add the backend directory to the Python path
-# so that `import config` and `from app import ...` inside the backend work.
 project_root = os.path.dirname(os.path.abspath(__file__))
 backend_dir = os.path.join(project_root, 'backend')
 sys.path.insert(0, backend_dir)
 
-# Import the Flask application instance
-from backend.app import app  # noqa: F401
+# Import the Flask application instance from backend/app/__init__.py
+from app import app  # noqa: F401
