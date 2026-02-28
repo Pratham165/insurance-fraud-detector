@@ -1,0 +1,52 @@
+# ─── Python ──────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# ─── Virtual Environment ─────────────────────
+venv/
+.venv/
+env/
+
+# ─── Environment Variables ───────────────────
+.env
+.env.local
+
+# ─── Model Artifacts ─────────────────────────────
+# Allow inference artifacts needed by the backend server
+!models/pipeline.pkl
+!models/train_medians.pkl
+!models/train_modes.pkl
+!models/metadata.json
+# Block large/optional files not needed for inference
+models/feature_importance.csv
+
+
+# ─── Data Files (too large for git) ──────────
+ml/data/raw/*.csv
+ml/data/processed/*.csv
+*.csv
+
+# ─── Jupyter Notebooks Checkpoints ───────────
+.ipynb_checkpoints/
+
+# ─── Node.js / Next.js ──────────────────────
+node_modules/
+.next/
+out/
+
+# ─── IDE / Editor ───────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+.qodo/
+
+# ─── OS Files ────────────────────────────────
+.DS_Store
+Thumbs.db

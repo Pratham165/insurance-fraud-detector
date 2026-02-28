@@ -1,0 +1,20 @@
+services:
+  # Flask API Backend
+  - type: web
+    name: aegis-fraud-api
+    runtime: python
+    # No rootDir — runs from repo root, so requirements.txt and ml/ are found naturally
+    buildCommand: pip install -r requirements.txt
+    # backend/ is a package, so we reference wsgi as backend.wsgi
+    startCommand: gunicorn --chdir backend wsgi:app
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: HOST
+        value: "0.0.0.0"
+      - key: PORT
+        value: "10000"
+      - key: ALLOWED_ORIGINS
+        # Replace with your actual Vercel app URL after deploying frontend
+        value: "https://your-app.vercel.app"
+
