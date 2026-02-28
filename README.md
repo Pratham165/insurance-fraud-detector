@@ -1,55 +1,70 @@
-# 🛡️ FraudGuard AI — Insurance Fraud Detection
+# 🛡️ Aegis — Insurance Fraud Detection System
 
-AI-powered insurance fraud detection system using Machine Learning (Random Forest) with a Flask API backend and Next.js frontend.
+AI-powered insurance fraud detection using a scikit-learn pipeline (Random Forest + SMOTE) with a Flask REST API backend and Next.js frontend.
+
+## Live Demo
+
+| Service | URL |
+|---------|-----|
+| Frontend | *(Vercel URL — update after deploy)* |
+| Backend API | *(Render URL — update after deploy)* |
 
 ## Project Structure
 
 ```
 ML_Project/
-│
 ├── backend/                    # Flask API server
 │   ├── app/
-│   │   ├── __init__.py         # Flask app factory
-│   │   ├── routes.py           # API endpoints
+│   │   ├── __init__.py         # Flask app factory + CORS
+│   │   ├── routes.py           # API endpoints + validation
 │   │   └── services/
-│   │       └── prediction.py   # ML inference service
-│   ├── config.py               # Configuration (env vars)
-│   └── run.py                  # Entry point
+│   │       └── prediction.py   # ML inference service (loads pipeline.pkl)
+│   ├── config.py               # Config from environment variables
+│   ├── wsgi.py                 # Gunicorn entry point (production)
+│   └── run.py                  # Dev server entry point
 │
 ├── ml/                         # Machine Learning pipeline
 │   ├── data/
-│   │   ├── raw/                # Original dataset
-│   │   └── processed/          # Cleaned dataset
+│   │   ├── raw/                # Original dataset (gitignored)
+│   │   └── processed/          # Cleaned dataset (gitignored)
 │   ├── notebooks/              # Jupyter notebooks (EDA, experiments)
 │   ├── preprocessing.py        # Shared preprocessing (training + inference)
 │   └── train.py                # Model training script
 │
-├── models/                     # Serialized model artifacts (.pkl)
+├── models/                     # Serialized pipeline artifacts
+│   ├── pipeline.pkl            # Full sklearn pipeline (preprocessor + SMOTE + RF)
+│   ├── train_medians.pkl       # Imputation values from training
+│   ├── train_modes.pkl
+│   └── metadata.json           # Model version and metrics
 │
-├── frontend/                   # Next.js frontend
-│   └── insurance-fraud-detector/
+├── frontend/
+│   └── insurance-fraud-detector/  # Next.js app
 │
-├── docs/                       # Documentation
+├── docs/                       # Audit report, checkpoint docs
+├── render.yaml                 # Render deployment config
+├── .python-version             # Pins Python 3.11 for Render
 ├── .env.example                # Environment variable template
-├── .gitignore
-├── requirements.txt            # Python dependencies
+├── requirements.txt            # Python dependencies (pinned)
 └── README.md
 ```
 
-## Quick Start
+## Quick Start (Local)
 
 ### 1. Setup Python Environment
 
 ```bash
 python -m venv venv
 venv\Scripts\activate          # Windows
+# source venv/bin/activate     # Mac/Linux
 pip install -r requirements.txt
 ```
 
 ### 2. Configure Environment
 
 ```bash
-copy .env.example .env
+copy .env.example .env         # Windows
+# cp .env.example .env         # Mac/Linux
+# Edit .env: set ALLOWED_ORIGINS=http://localhost:3000
 ```
 
 ### 3. Train the Model
@@ -63,9 +78,8 @@ python -m ml.train
 ```bash
 cd backend
 python run.py
+# API: http://localhost:5000
 ```
-
-API will be available at `http://localhost:5000`
 
 ### 5. Start the Frontend
 
@@ -73,22 +87,26 @@ API will be available at `http://localhost:5000`
 cd frontend/insurance-fraud-detector
 npm install
 npm run dev
+# App: http://localhost:3000
 ```
 
-Frontend will be available at `http://localhost:3000`
+## Deployment
 
-## API Endpoints
+- **Backend** → [Render](https://render.com) — `render.yaml` auto-configures the service. Start command: `gunicorn --chdir backend wsgi:app`
+- **Frontend** → [Vercel](https://vercel.com) — set root directory to `frontend/insurance-fraud-detector`, add `NEXT_PUBLIC_API_URL` env var pointing to Render URL.
 
-| Method | Endpoint        | Description                    |
-|--------|----------------|--------------------------------|
-| GET    | `/`            | API info                       |
-| GET    | `/health`      | Health check                   |
-| POST   | `/api/predict` | Submit claim for prediction    |
+## API Reference
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/` | API info |
+| `GET` | `/health` | Health check + model status |
+| `POST` | `/api/predict` | Submit claim for fraud prediction |
 
 ### Example Request
 
 ```bash
-curl -X POST http://localhost:5000/api/predict \
+curl -X POST https://your-api.onrender.com/api/predict \
   -H "Content-Type: application/json" \
   -d '{
     "age_of_driver": 35,
@@ -137,6 +155,9 @@ curl -X POST http://localhost:5000/api/predict \
 
 ## Tech Stack
 
-- **ML**: Python, scikit-learn, pandas, numpy
-- **Backend**: Flask, Flask-CORS
-- **Frontend**: Next.js 16, React 19, TypeScript, Tailwind CSS
+| Layer | Technology |
+|-------|-----------|
+| ML | Python, scikit-learn, imbalanced-learn (SMOTE), pandas, numpy |
+| Backend | Flask, Flask-CORS, Gunicorn |
+| Frontend | Next.js 16, React 19, TypeScript, Tailwind CSS, shadcn/ui |
+| Deployment | Render (backend), Vercel (frontend) |
