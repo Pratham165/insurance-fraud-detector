@@ -5,8 +5,8 @@ services:
     runtime: python
     # No rootDir — runs from repo root, so requirements.txt and ml/ are found naturally
     buildCommand: pip install -r requirements.txt
-    # backend/ is a package, so we reference wsgi as backend.wsgi
-    startCommand: gunicorn --chdir backend wsgi:app
+    # Run gunicorn from the root and point it to the backend module
+    startCommand: gunicorn backend.wsgi:app
     envVars:
       - key: DEBUG
         value: "False"
