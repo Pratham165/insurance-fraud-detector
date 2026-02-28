@@ -3,12 +3,12 @@ flask==3.1.0
 flask-cors==5.0.1
 python-dotenv==1.0.1
 
-# ML
-scikit-learn==1.6.1
-pandas==2.2.3
-numpy==2.2.3
-scipy==1.15.2
-imbalanced-learn==0.14.1
+# ML — pinned to versions with pre-built Linux wheels (avoids source compilation on Render)
+scikit-learn==1.4.2
+pandas==2.2.2
+numpy==1.26.4
+scipy==1.13.1
+imbalanced-learn==0.12.3
 
 # Production server
 gunicorn==23.0.0
