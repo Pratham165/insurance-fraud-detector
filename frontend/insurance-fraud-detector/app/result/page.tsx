@@ -181,7 +181,7 @@ function ResultContent() {
                                 <div className="h-2.5 bg-slate-100 rounded-full overflow-hidden">
                                     <div
                                         className={`h-full rounded-full transition-all duration-1000 ${probability >= 0.7 ? 'bg-rose-500' :
-                                                probability >= 0.4 ? 'bg-amber-500' : 'bg-emerald-500'
+                                            probability >= 0.4 ? 'bg-amber-500' : 'bg-emerald-500'
                                             }`}
                                         style={{ width: `${Math.max(Number(probPercent), 2)}%` }}
                                     />
@@ -232,17 +232,16 @@ function ResultContent() {
                 </div>
 
                 {/* ── Actions ──────────────────────────────────────── */}
-                <Card className="border-slate-200 shadow-sm bg-white">
-                    <CardContent className="p-4 flex flex-col sm:flex-row items-center gap-3">
-                        <Button
-                            className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white"
-                            onClick={() => router.push('/predict')}
-                        >
-                            <RotateCcw className="w-4 h-4 mr-2" strokeWidth={1.5} />
-                            New Scan
-                        </Button>
-                    </CardContent>
-                </Card>
+                <div className="flex justify-center pt-2 pb-6">
+                    <Button
+                        size="lg"
+                        className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white px-8"
+                        onClick={() => router.push('/predict')}
+                    >
+                        <RotateCcw className="w-5 h-5 mr-2" strokeWidth={1.5} />
+                        Start New Scan
+                    </Button>
+                </div>
             </div>
         </main>
     );
