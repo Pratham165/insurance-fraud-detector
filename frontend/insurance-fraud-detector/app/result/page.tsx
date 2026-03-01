@@ -241,30 +241,6 @@ function ResultContent() {
                             <RotateCcw className="w-4 h-4 mr-2" strokeWidth={1.5} />
                             New Scan
                         </Button>
-                        <Button
-                            variant="outline"
-                            className="w-full sm:w-auto border-slate-200"
-                            onClick={() => {
-                                /* placeholder for future PDF export */
-                                alert('PDF export coming soon');
-                            }}
-                        >
-                            <Download className="w-4 h-4 mr-2" strokeWidth={1.5} />
-                            Download Report
-                        </Button>
-                        {fraudRisk && (
-                            <Button
-                                variant="outline"
-                                className="w-full sm:w-auto border-rose-200 text-rose-700 hover:bg-rose-50"
-                                onClick={() => {
-                                    /* placeholder for investigation flow */
-                                    alert('Investigation workflow coming soon');
-                                }}
-                            >
-                                <ShieldAlert className="w-4 h-4 mr-2" strokeWidth={1.5} />
-                                Open Investigation
-                            </Button>
-                        )}
                     </CardContent>
                 </Card>
             </div>
