@@ -93,7 +93,7 @@ def health():
 def index():
     """API info endpoint."""
     return jsonify({
-        'message': 'FraudGuard AI API is running.',
+        'message': 'Insurance Analytics API is running.',
         'version': '1.0.0',
         'endpoints': {
             'POST /api/predict': 'Submit a claim for fraud prediction',
